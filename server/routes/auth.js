@@ -1,8 +1,8 @@
 // CRUD
-// Create - Create a new user
+// Create - (post) Login user
 // Read - Get a user
 // Update - Not implemented in this file
-// Delete - Delete a user
+// Delete - Not implemented in this gile
 const express = require('express');
 const router = express.Router();
 
