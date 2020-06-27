@@ -1,7 +1,11 @@
 const express = require('express');
-
+const connectDatabase = require('./db/db');
 const app = express();
 const PORT = 5000;
+
+connectDatabase();
+
+app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) => {
   res.send('Hello world! Lets make a notes app!');

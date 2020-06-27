@@ -6,6 +6,8 @@
 const express = require('express');
 const router = express.Router();
 
+// TODO - MAKE SCHEMA FOR NOTE
+
 router.get('/', (req, res) => {
   res.send('Gets a note');
 });
