@@ -8,7 +8,7 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-  useFindAndModify: true,
+  useFindAndModify: false,
 };
 
 const connectDatabase = async () => {
