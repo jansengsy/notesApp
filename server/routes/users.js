@@ -104,6 +104,7 @@ router.put(
   }
 );
 
+// Delete a user. Protected route using auth middleware
 router.delete('/', auth, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

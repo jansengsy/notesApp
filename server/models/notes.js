@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const noteSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-  },
   author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  title: {
     type: String,
     required: true,
   },
@@ -15,7 +15,6 @@ const noteSchema = new mongoose.Schema({
   },
   teams: {
     ofString: [String],
-    required: true,
   },
 });
 
