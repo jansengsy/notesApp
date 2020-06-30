@@ -21,16 +21,32 @@ router.post(
     body('title', 'Please add a title').not().isEmpty(),
     body('body', 'Please enter a body for the note').not().isEmpty(),
   ],
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
-    if (errors) {
+    if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
 
     const { title, body, teams } = req.body;
+    const { id } = req.id;
 
-    // We need make a notes model
-    res.send('Creates a note');
+    try {
+      let note = new Note({
+        user: id,
+        title,
+        body,
+      });
+
+      if (teams) {
+        note.teams = teams;
+      }
+
+      // We don't check for existing note as we can have notes with duplicate titles
+      const newNote = await note.save();
+      return res.status(200).json(newNote);
+    } catch (err) {
+      return res.status(500).json({ msg: 'Server Error' });
+    }
   }
 );
 

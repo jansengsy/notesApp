@@ -13,9 +13,7 @@ const noteSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  teams: {
-    ofString: [String],
-  },
+  teams: { type: Array, default: [] },
 });
 
 const Note = mongoose.model('Note', noteSchema);
