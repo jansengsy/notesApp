@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const noteSchema = new mongoose.Schema({
-  title: {
+  author: {
     type: String,
     required: true,
   },
-  author: {
+  title: {
     type: String,
     required: true,
   },
@@ -13,10 +13,7 @@ const noteSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  teams: {
-    ofString: [String],
-    required: true,
-  },
+  teams: { type: Array, default: [] },
 });
 
 const Note = mongoose.model('Note', noteSchema);
