@@ -4,9 +4,10 @@ const config = require('config');
 // We need to get token, verify it against our secret in the config, and then return for next or throw error
 
 const auth = async (req, res, next) => {
-  const token = req.header('bearer'); // Get the token from the header (we sent using bearer)
+  const authHeader = req.header('Authorization'); // Get the token from the header (we sent using bearer)
+  const token = authHeader.split(' ');
 
-  if (token) {
+  if (token[1]) {
     try {
       const decodedToken = jwt.verify(token, config.get('jwtSecret'));
       req.id = decodedToken.user.id; // When we made the JWT token, we used the user's ID as the payload (routes/users.js line 57 + 63)
