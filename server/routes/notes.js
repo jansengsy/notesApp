@@ -9,8 +9,19 @@ const { body, validationResult, oneOf } = require('express-validator');
 const auth = require('../middleware/auth');
 const Note = require('../models/notes');
 
-router.get('/', auth, (req, res) => {
-  res.send('Gets a note');
+router.get('/', auth, async (req, res) => {
+  try {
+    let notes = await Note.find({ author: req.id });
+
+    // Check note exists
+    if (!notes) {
+      return res.status(400).json({ msg: 'You do not have any notes' });
+    }
+
+    return res.send(notes);
+  } catch (err) {
+    return res.status(500).json({ msg: 'Server error' });
+  }
 });
 
 // Create a note
@@ -120,7 +131,7 @@ router.delete('/:id', auth, async (req, res) => {
     }
 
     await Note.findByIdAndDelete(req.params.id);
-    res.status(200).json({ msg: 'Note deleted' });
+    return res.status(200).json({ msg: 'Note deleted' });
   } catch (err) {
     return res.status(500).json({ msg: 'Server error' });
   }
